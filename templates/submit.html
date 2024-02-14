@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <form method="POST">
-    <label for="user">Name:</label><br>
-    <input type="text" id="user" name="user"><br>
-    <label for="message">Message:</label><br>
+    <label for="message">Your message:</label><br>
     <input type="text" id="message" name="message"><br>
+    <label for="user">Your name or handle:</label><br>
+    <input type="text" id="user" name="user"><br>
     <input type="submit" value="Submit">
 </form>
 {% if message %}

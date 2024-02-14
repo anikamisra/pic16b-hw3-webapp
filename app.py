@@ -3,6 +3,7 @@
 from flask import Flask, request, render_template
 import sqlite3
 from flask import g
+import random 
 
 def get_message_db():
     if 'message_db' not in g:
@@ -16,13 +17,16 @@ def insert_message(request):
     cursor = db.cursor()
     cursor.execute('INSERT INTO messages (handle, message) VALUES (?, ?)', (request.form['user'], request.form['message']))
     db.commit()
+    # close the database connection 
+    #db.close()
 
-def fetch_messages():
+def random_messages(n):
     db = get_message_db()
     cursor = db.cursor()
     cursor.execute('SELECT * FROM messages')
     messages = cursor.fetchall()
-    return messages
+    db.close()
+    return random.sample(messages, min(n, len(messages)))
 
 app = Flask(__name__)
 
@@ -41,9 +45,9 @@ def submit():
     return render_template('submit.html', user=user, message=message)
 
 @app.route('/messages', methods=['GET'])
-def messages():
-    messages = fetch_messages()
-    return render_template('messages.html', messages=messages)
+def messages(): 
+    messages = random_messages(5)
+    return render_template('view.html', messages=messages)
 
 """
 
@@ -61,3 +65,18 @@ def submit():
 def messages():
     messages = fetch_messages()
     return render_template('messages.html', messages=messages)"""
+
+"""@app.route('/messages', methods=['GET'])
+def messages():
+    messages = fetch_messages()
+    return render_template('view.html', messages=messages)"""
+
+"""
+@app.route('/messages', methods=['GET'])
+def messages(): 
+    db = get_message_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM messages')
+    messages = cursor.fetchall()
+    return render_template('view.html', messages=messages)
+"""
