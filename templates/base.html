@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Message Bank{% endblock %}</title>
+</head>
+<body>
+    {% block header %}
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/submit">Submit Message</a> |
+        <a href="/messages">View Messages</a>
+    </nav>
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
