@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>{% block title %}Message Bank{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="center">
     {% block header %}
     <h1>Welcome to the message bank!</h1>
     <nav>
@@ -13,5 +15,6 @@
     {% endblock %}
     {% block content %}
     {% endblock %}
+    </div>
 </body>
 </html>
